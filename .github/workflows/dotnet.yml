@@ -21,6 +21,17 @@ jobs:
     - run: dotnet tool restore
     - run: dotnet fantomas --check .
 
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+    - run: dotnet tool restore
+    - run: dotnet dotnet-fsharplint lint advent-of-code-2023-fs.sln
+
   test:
     runs-on: ubuntu-latest
     steps:
