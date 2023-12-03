@@ -2,7 +2,17 @@ open Xunit
 open FsUnit.Xunit
 
 type Game = { Id: int; CubesSets: Cubes seq }
-and Cubes = { Red: int; Green: int; Blue: int }
+
+and Cubes =
+    { Red: int
+      Green: int
+      Blue: int }
+
+    member self.Max(other) =
+        { Red = max self.Red other.Red
+          Green = max self.Green other.Green
+          Blue = max self.Blue other.Blue }
+
 
 let part1 (games: Game seq) =
     games
@@ -14,14 +24,7 @@ let part1 (games: Game seq) =
 let part2 (games: Game seq) =
     games
     |> Seq.sumBy (fun game ->
-        let fewest =
-            game.CubesSets
-            |> Seq.reduce (fun acc cubes ->
-                { acc with
-                    Red = max acc.Red cubes.Red
-                    Green = max acc.Green cubes.Green
-                    Blue = max acc.Blue cubes.Blue })
-
+        let fewest = game.CubesSets |> Seq.reduce (fun acc cubes -> acc.Max(cubes))
         fewest.Red * fewest.Green * fewest.Blue)
 
 let parse (input: string) =
