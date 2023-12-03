@@ -40,7 +40,7 @@ let part1 (schematic: string array) =
             && i' < schematic.Length
             && 0 <= j'
             && j' < schematic[i'].Length
-            && System.Char.IsDigit(schematic[i'][j']) = false
+            && not (System.Char.IsDigit(schematic[i'][j']))
             && schematic[i'][j'] <> '.')
 
     collectNumbers schematic
