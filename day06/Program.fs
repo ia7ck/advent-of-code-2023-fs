@@ -40,7 +40,7 @@ let parse (input: string) =
             |> Seq.map int
 
         Seq.zip time distance |> Seq.map (fun (t, d) -> { Time = t; Distance = d })
-    | _ -> failwith "unimplemented, input = {input}"
+    | _ -> failwith $"unimplemented, input = {input}"
 
 module Example =
     let input =
