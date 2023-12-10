@@ -157,7 +157,7 @@ let parse (input: string) =
           LightToTemperature = categoryMaps lightToTemperature
           TemperatureToHumidity = categoryMaps temperatureToHumidity
           HumidityToLocation = categoryMaps humidityToLocation }
-    | _ -> failwithf "unimplemented"
+    | _ -> failwithf "unimplemented, input = %A" input
 
 module Example =
     let input =
