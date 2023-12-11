@@ -27,7 +27,7 @@ let solve (network: Network) start (terminate: string -> bool) =
         match instruction with
         | Left -> node.Left
         | Right -> node.Right)
-    |> Seq.takeWhile (fun c -> not (terminate c))
+    |> Seq.takeWhile (terminate >> not)
     |> Seq.length
 
 let part1 (network: Network) = solve network "AAA" ((=) "ZZZ")
