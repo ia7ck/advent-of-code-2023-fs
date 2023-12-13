@@ -67,9 +67,9 @@ let part2 (rows: Row list) =
                     | Some(Operational) :: t, sizes -> dp t sizes
                     | Some(Damaged) :: _, size :: tt ->
                         // size = 3
-                        // ?#??*** -> ok
-                        // ?#?.*** -> ok
-                        // ?#?#*** -> ng
+                        // #???*** -> ok
+                        // #??.*** -> ok
+                        // #??#*** -> ng
 
                         let damagedSprings = springs[.. (size - 1)]
 
