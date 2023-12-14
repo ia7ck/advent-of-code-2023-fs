@@ -15,10 +15,7 @@ let collectNumbers (schematic: string array) =
             else
                 match s[j] with
                 | ch when System.Char.IsDigit(ch) ->
-                    let v =
-                        s[j..]
-                        |> Seq.takeWhile (fun ch -> System.Char.IsDigit(ch))
-                        |> System.String.Concat
+                    let v = s[j..] |> Seq.takeWhile System.Char.IsDigit |> System.String.Concat
 
                     let positions = Seq.zip (Seq.initInfinite (fun _ -> i)) [ j .. (j + v.Length - 1) ]
 
@@ -43,9 +40,7 @@ let part1 (schematic: string array) =
             && not (System.Char.IsDigit(schematic[i'][j']))
             && schematic[i'][j'] <> '.')
 
-    collectNumbers schematic
-    |> Seq.filter isPartNumber
-    |> Seq.sumBy (fun n -> n.Value)
+    collectNumbers schematic |> Seq.filter isPartNumber |> Seq.sumBy (_.Value)
 
 let part2 (schematic: string array) =
     let numbers = collectNumbers schematic

@@ -19,12 +19,12 @@ let part1 (games: Game seq) =
     |> Seq.filter (fun game ->
         game.CubesSets
         |> Seq.forall (fun cubes -> cubes.Red <= 12 && cubes.Green <= 13 && cubes.Blue <= 14))
-    |> Seq.sumBy (fun game -> game.Id)
+    |> Seq.sumBy (_.Id)
 
 let part2 (games: Game seq) =
     games
     |> Seq.sumBy (fun game ->
-        let fewest = game.CubesSets |> Seq.reduce (fun acc cubes -> acc.Max(cubes))
+        let fewest = game.CubesSets |> Seq.reduce (_.Max)
         fewest.Red * fewest.Green * fewest.Blue)
 
 let parse (input: string) =

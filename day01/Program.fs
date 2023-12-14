@@ -3,32 +3,32 @@ open FsUnit.Xunit
 
 // https://learn.microsoft.com/ja-jp/dotnet/fsharp/language-reference/active-patterns#partial-active-patterns
 let (|StartsWith|_|) (p: string) (s: string) =
-    if s.StartsWith(p) then Some(s[p.Length ..]) else None
+    if s.StartsWith(p) then Some(()) else None
 
-let parseNoramlDigit (text: string) =
+let parseNormalDigit (text: string) =
     match text with
-    | StartsWith "1" _rest -> Some(1)
-    | StartsWith "2" _rest -> Some(2)
-    | StartsWith "3" _rest -> Some(3)
-    | StartsWith "4" _rest -> Some(4)
-    | StartsWith "5" _rest -> Some(5)
-    | StartsWith "6" _rest -> Some(6)
-    | StartsWith "7" _rest -> Some(7)
-    | StartsWith "8" _rest -> Some(8)
-    | StartsWith "9" _rest -> Some(9)
+    | StartsWith "1" -> Some(1)
+    | StartsWith "2" -> Some(2)
+    | StartsWith "3" -> Some(3)
+    | StartsWith "4" -> Some(4)
+    | StartsWith "5" -> Some(5)
+    | StartsWith "6" -> Some(6)
+    | StartsWith "7" -> Some(7)
+    | StartsWith "8" -> Some(8)
+    | StartsWith "9" -> Some(9)
     | _ -> None
 
 let parseLettersDigit (text: string) =
     match text with
-    | StartsWith "one" _rest -> Some(1)
-    | StartsWith "two" _rest -> Some(2)
-    | StartsWith "three" _rest -> Some(3)
-    | StartsWith "four" _rest -> Some(4)
-    | StartsWith "five" _rest -> Some(5)
-    | StartsWith "six" _rest -> Some(6)
-    | StartsWith "seven" _rest -> Some(7)
-    | StartsWith "eight" _rest -> Some(8)
-    | StartsWith "nine" _rest -> Some(9)
+    | StartsWith "one" -> Some(1)
+    | StartsWith "two" -> Some(2)
+    | StartsWith "three" -> Some(3)
+    | StartsWith "four" -> Some(4)
+    | StartsWith "five" -> Some(5)
+    | StartsWith "six" -> Some(6)
+    | StartsWith "seven" -> Some(7)
+    | StartsWith "eight" -> Some(8)
+    | StartsWith "nine" -> Some(9)
     | _ -> None
 
 let collectDigits (text: string) (parseDigit: string -> int option) =
@@ -37,7 +37,7 @@ let collectDigits (text: string) (parseDigit: string -> int option) =
             Seq.rev acc
         else
             match parseDigit t with
-            | Some((v)) -> collect t[1..] (v :: acc)
+            | Some v -> collect t[1..] (v :: acc)
             | None -> collect t[1..] acc
 
     collect text []
@@ -50,11 +50,11 @@ let solve texts parseDigit =
         let last = Seq.last digits
         first * 10 + last)
 
-let part1 (texts: string seq) = solve texts parseNoramlDigit
+let part1 (texts: string seq) = solve texts parseNormalDigit
 
 let part2 (texts: string seq) =
     let parseDigit t =
-        parseNoramlDigit t
+        parseNormalDigit t
         |> Option.orElseWith (fun () ->
             // fallback
             parseLettersDigit t)

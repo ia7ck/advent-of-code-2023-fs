@@ -6,18 +6,18 @@ type Card =
       WinningNumbers: int seq
       MyNumbers: int seq }
 
-    member self.MyWinnigNumbers() =
+    member self.MyWinningNumbers() =
         self.MyNumbers |> Seq.filter (fun n -> Seq.contains n self.WinningNumbers)
 
 let part1 (cards: Card seq) =
     cards
     |> Seq.sumBy (fun card ->
-        let win = card.MyWinnigNumbers() |> Seq.length
+        let win = card.MyWinningNumbers() |> Seq.length
         if win = 0 then 0 else pown 2 (win - 1))
 
 let part2 (cards: Card seq) =
     let moreCards (card: Card) =
-        let win = card.MyWinnigNumbers() |> Seq.length
+        let win = card.MyWinningNumbers() |> Seq.length
         cards |> Seq.filter (fun c -> card.Id < c.Id && c.Id <= card.Id + win)
 
     let rec solve (originals: Card list) (copies: Map<int, int>) total =
@@ -46,7 +46,7 @@ let parse (input: string) =
         let i = card.IndexOf(':')
         let cardId = card[.. (i - 1)].Replace("Card", "") |> int
 
-        let (winningNumbers, myNumbers) =
+        let winningNumbers, myNumbers =
             match card[(i + 1) ..].Split('|') with
             | [| winningNumbers; myNumbers |] ->
                 let toInts (s: string) =
