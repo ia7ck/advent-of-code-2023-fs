@@ -12,7 +12,7 @@ type Almanac =
       HumidityToLocation: CategoryMap seq }
 
 and CategoryMap =
-    { DestionationRangeStart: int64
+    { DestinationRangeStart: int64
       SourceRangeStart: int64
       RangeLength: int64 }
 
@@ -21,7 +21,7 @@ and CategoryMap =
             self.SourceRangeStart <= number
             && number < self.SourceRangeStart + self.RangeLength
         then
-            Some(number - self.SourceRangeStart + self.DestionationRangeStart)
+            Some(number - self.SourceRangeStart + self.DestinationRangeStart)
         else
             None
 
@@ -62,7 +62,7 @@ let part1 (almanac: Almanac) =
 
 let part2 (almanac: Almanac) =
     let p (map: CategoryMap) (range: Range) =
-        let delta = map.DestionationRangeStart - map.SourceRangeStart
+        let delta = map.DestinationRangeStart - map.SourceRangeStart
 
         let source =
             { Start = map.SourceRangeStart
@@ -121,7 +121,7 @@ let part2 (almanac: Almanac) =
     |> mapping almanac.LightToTemperature
     |> mapping almanac.TemperatureToHumidity
     |> mapping almanac.HumidityToLocation
-    |> Seq.map (fun range -> range.Start)
+    |> Seq.map (_.Start)
     |> Seq.min
 
 let parse (input: string) =
@@ -142,7 +142,7 @@ let parse (input: string) =
             |> Seq.map (fun m ->
                 match m.Split(' ') with
                 | [| destStart; sourceStart; length |] ->
-                    { DestionationRangeStart = int64 destStart
+                    { DestinationRangeStart = int64 destStart
                       SourceRangeStart = int64 sourceStart
                       RangeLength = int64 length }
                 | _ -> failwith "unimplemented")
