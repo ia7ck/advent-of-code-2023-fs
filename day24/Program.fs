@@ -51,6 +51,7 @@ let part1 (lower: decimal) (upper: decimal) (stones: Hailstone list) =
 
 let part2 (stones: Hailstone list) =
     let limit = 250m // 解が見つかるように適当に大きめの値
+
     List.allPairs [ -limit .. limit ] [ -limit .. limit ]
     |> List.collect (fun (vx, vy) ->
         let h0, h1, h2 = stones[0], stones[1], stones[2]
