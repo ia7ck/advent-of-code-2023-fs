@@ -93,7 +93,6 @@ let compareHand (h: Hand) (h': Hand) =
     elif h.C1 <> h'.C1 then compare h.C1 h'.C1
     elif h.C2 <> h'.C2 then compare h.C2 h'.C2
     elif h.C3 <> h'.C3 then compare h.C3 h'.C3
-    elif h.C3 <> h'.C3 then compare h.C3 h'.C3
     elif h.C4 <> h'.C4 then compare h.C4 h'.C4
     elif h.C5 <> h'.C5 then compare h.C5 h'.C5
     else 0 // equal
@@ -111,7 +110,6 @@ let compareJokerHand (h: Hand) (h': Hand) =
     if t <> t' then compare t t'
     elif h.C1 <> h'.C1 then cmp h.C1 h'.C1
     elif h.C2 <> h'.C2 then cmp h.C2 h'.C2
-    elif h.C3 <> h'.C3 then cmp h.C3 h'.C3
     elif h.C3 <> h'.C3 then cmp h.C3 h'.C3
     elif h.C4 <> h'.C4 then cmp h.C4 h'.C4
     elif h.C5 <> h'.C5 then cmp h.C5 h'.C5
