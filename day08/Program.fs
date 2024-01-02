@@ -20,15 +20,17 @@ let solve (network: Network) start (terminate: string -> bool) =
     let instructions = List.ofSeq network.Instructions
     let nodes = network.Nodes |> Seq.map (fun node -> node.Id, node) |> Map.ofSeq
 
-    (start, Seq.initInfinite (fun index -> List.item (index % instructions.Length) instructions))
-    ||> Seq.scan (fun current instruction ->
-        let node = nodes |> Map.find current
+    let rec navigate label step =
+        if terminate label then
+            step
+        else
+            let n = nodes[label]
 
-        match instruction with
-        | Left -> node.Left
-        | Right -> node.Right)
-    |> Seq.takeWhile (terminate >> not)
-    |> Seq.length
+            match instructions[step % instructions.Length] with
+            | Left -> navigate n.Left (step + 1)
+            | Right -> navigate n.Right (step + 1)
+
+    navigate start 0
 
 let part1 (network: Network) = solve network "AAA" ((=) "ZZZ")
 
